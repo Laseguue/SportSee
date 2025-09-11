@@ -1,9 +1,6 @@
 import React from 'react';
 import Logo from './Logo';
-import HomeBtn from './HomeBtn';
-import ProfilBtn from './ProfilBtn';
-import ComunauteBtn from './ComunauteBtn';
-import ReglageBtn from './ReglageBtn';
+import HeaderButton from './HeaderButton';
 import './Header.css';
 
 function Header() {
@@ -12,10 +9,10 @@ function Header() {
       <div className="header-content">
         <Logo />
         <nav>
-            <HomeBtn />
-            <ProfilBtn />
-            <ComunauteBtn />
-            <ReglageBtn />
+            <HeaderButton to="/" label="Accueil" className="home-btn" />
+            <HeaderButton to="/profil" label="Profil" className="profil-btn" />
+            <HeaderButton to="/communaute" label="Comunauté" className="comunaute-btn" />
+            <HeaderButton to="/reglages" label="Réglage" className="reglage-btn" />
         </nav>
       </div>
     </header>

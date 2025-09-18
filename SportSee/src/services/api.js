@@ -14,16 +14,10 @@ async function fetchJson(path, { signal } = {}) {
     let userId = pathParts[pathParts.length - 2];
 
     if (!userId || userId === 'user' || userId === undefined || userId === null) {
-      console.warn(`Invalid userId in path "${path}", using default USER_ID: ${USER_ID}`);
       userId = USER_ID;
     } else {
       const parsedId = parseInt(userId, 10);
-      if (isNaN(parsedId)) {
-        console.warn(`Invalid userId "${userId}" in path "${path}", using default USER_ID: ${USER_ID}`);
-        userId = USER_ID;
-      } else {
-        userId = parsedId;
-      }
+      userId = isNaN(parsedId) ? USER_ID : parsedId;
     }
 
     if (endpoint === 'activity' || endpoint === 'average-sessions' || endpoint === 'performance') {

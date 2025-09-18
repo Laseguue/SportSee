@@ -37,7 +37,7 @@ function ScoreGraph({ userId = 12 }) {
   }
 
   return (
-    <div style={{ position: 'relative', background: '#FFFFFF', borderRadius: 8, padding: 16, aspectRatio: '1 / 1' }}>
+    <div style={{ position: 'relative', background: '#FBFBFB', borderRadius: 8, padding: 16, aspectRatio: '1 / 1' }}>
       <div style={{ position: 'absolute', top: 16, left: 16, color: '#74798C', fontWeight: 600 }}>Score</div>
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">

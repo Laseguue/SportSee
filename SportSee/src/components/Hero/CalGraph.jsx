@@ -75,7 +75,7 @@ function CalGraph() {
                         </span>
                     </div>
                 </div>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={250}>
                     <BarChart
                         data={activityData}
                         margin={{ top: 56, right: 20, left: 20, bottom: 20 }}

@@ -86,7 +86,7 @@ function DurationGraph() {
                     }}
                 />
             )}
-            <div style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 180, fontSize: 15 }}>
+            <div className="chart-title" style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 180 }}>
                 Durée moyenne des sessions
             </div>
             <ResponsiveContainer width="100%" height="100%">
@@ -110,9 +110,9 @@ function DurationGraph() {
                         type="monotone"
                         dataKey="duration"
                         stroke="#FFFFFF"
-                        strokeWidth={2}
+                        strokeWidth={3}
                         dot={false}
-                        activeDot={{ r: 4, stroke: 'rgba(255,255,255,0.3)', strokeWidth: 8, fill: '#FFFFFF' }}
+                        activeDot={{ r: 6, stroke: 'rgba(255,255,255,0.3)', strokeWidth: 10, fill: '#FFFFFF' }}
                     />
                 </LineChart>
             </ResponsiveContainer>

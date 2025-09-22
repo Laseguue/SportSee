@@ -37,8 +37,8 @@ function ScoreGraph({ userId = 12 }) {
   }
 
   return (
-    <div style={{ position: 'relative', background: '#FBFBFB', borderRadius: 8, padding: 16, aspectRatio: '1 / 1' }}>
-      <div style={{ position: 'absolute', top: 16, left: 16, color: '#74798C', fontWeight: 600 }}>Score</div>
+    <div className="score-graph" style={{ position: 'relative', background: '#FBFBFB', borderRadius: 8, padding: 16, aspectRatio: '1 / 1' }}>
+      <div className="chart-title" style={{ position: 'absolute', top: 16, left: 16, color: '#74798C', fontWeight: 600 }}>Score</div>
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <RadialBarChart
@@ -46,7 +46,7 @@ function ScoreGraph({ userId = 12 }) {
             cy="50%"
             innerRadius="70%"
             outerRadius="85%"
-            barSize={12}
+            barSize={20}
             data={chartData}
             startAngle={90}
             endAngle={450}
@@ -54,7 +54,7 @@ function ScoreGraph({ userId = 12 }) {
             <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
             <RadialBar
               dataKey="value"
-              cornerRadius={12}
+              cornerRadius={20}
               fill="#E60000"
               background
             />
@@ -79,9 +79,9 @@ function ScoreGraph({ userId = 12 }) {
             borderRadius: '50%'
           }} />
           <div style={{ position: 'relative', textAlign: 'center' }}>
-            <div style={{ fontSize: 24, fontWeight: 700, color: '#282D30' }}>{scorePercent}%</div>
-            <div style={{ marginTop: 4, color: '#74798C', fontSize: 12 }}>de votre</div>
-            <div style={{ color: '#74798C', fontSize: 12 }}>objectif</div>
+            <div className="score-value" style={{ fontWeight: 700, color: '#282D30' }}>{scorePercent}%</div>
+            <div className="score-sub" style={{ marginTop: 4, color: '#74798C' }}>de votre</div>
+            <div className="score-sub" style={{ color: '#74798C' }}>objectif</div>
           </div>
         </div>
       </div>

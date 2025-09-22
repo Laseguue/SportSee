@@ -1,12 +1,12 @@
 .hero-content {
+    padding-top: 6rem;
     padding-left: 8rem;
     padding-right: 2rem;
     box-sizing: border-box;
-    max-width: 1360px;
 }
 
-.profil-greet {
-    margin: 2rem 0 1.5rem 0;
+.cal-graph {
+    aspect-ratio: 36/9;
 }
 
 .profil-name {
@@ -17,26 +17,29 @@
 
 .profil-name h1 {
     margin: 0;
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: 700;
 }
 
 .profil-name .user-prenom {
+    font-size: 3rem;
     color: #FF0101;
 }
 
 .profil-greet p {
-    margin: 0.5rem 0 0 0;
-    font-size: 14px;
+    margin: 0;
+    font-size: 1rem;
     color: #74798C;
 }
 
 .dashboard {
     display: grid;
-    grid-template-columns: 1fr 260px;
+    grid-template-columns: 1fr 0.1fr;
     grid-auto-rows: min-content;
     gap: 2rem;
     align-items: stretch;
+    width: 100%;
+    height: 100%;
 }
 
 .nutrients {
@@ -58,7 +61,6 @@
     grid-column: 1 / -1; 
     background: #FBFBFB; 
     border-radius: 5px;
-    padding: 1rem;
 }
 
 .graphs > :nth-child(2) {
@@ -106,9 +108,56 @@
 .nutrients > :nth-child(3) .nutrient-icon { background: rgba(249, 206, 35, 0.1); }
 .nutrients > :nth-child(4) .nutrient-icon { background: rgba(253, 81, 129, 0.1); }
 
-@media (min-width: 1024px) {
-    .hero-content {
-        max-width: 1360px;
+@media (min-width: 2000px) {
+    .recharts-text,
+    .recharts-text tspan,
+    .recharts-legend-item-text,
+    .recharts-default-tooltip,
+    .recharts-tooltip-item,
+    .recharts-polar-angle-axis-tick-value {
+        font-size: 18px !important;
+        line-height: 1.4;
     }
-}
 
+    .cal-graph .chart-title,
+    .duration-graph .chart-title,
+    .score-graph .chart-title {
+        font-size: 28px !important;
+    }
+
+    .cal-graph .chart-legend {
+        font-size: 18px !important;
+    }
+
+    .score-graph .score-value {
+        font-size: 36px !important;
+    }
+    .score-graph .score-sub {
+        font-size: 18px !important;
+    }
+
+    .nutrient-value { font-size: 22px; }
+    .nutrient-label { font-size: 16px; }
+    .nutrient-icon { width: 80px; height: 80px; }
+    .nutrient-icon .icon { font-size: 32px; }
+    
+    .profil-greet {
+        margin: 2rem;
+    }
+    .profil-name h1 {
+        font-size: 5rem;
+        font-weight: 700;
+    }
+    .profil-greet p {
+        font-size: 1.5rem;
+    }
+    
+    .profil-name .user-prenom {
+        font-size: 5rem;
+    }
+
+    .graphs {
+        gap: 4rem;
+    }
+    
+}

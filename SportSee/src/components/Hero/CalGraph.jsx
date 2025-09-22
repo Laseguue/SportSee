@@ -61,10 +61,10 @@ function CalGraph() {
 
     return (
         <div className="cal-graph">
-            <div className= "cal-graph" style={{ position: 'relative', borderRadius: 5, padding: 24 }}>
+            <div className= "cal-graph" style={{ position: 'relative', borderRadius: 5}}>
                 <div style={{ position: 'absolute', left: 24, right: 24, top: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ fontWeight: 600, lineHeight: '16px' }}>Activité quotidienne</div>
-                    <div style={{ display: 'flex', gap: 24, alignItems: 'center', color: '#74798C', fontSize: 14, lineHeight: '16px' }}>
+                    <div className="chart-title" style={{ fontWeight: 600, lineHeight: '1.1' }}>Activité quotidienne</div>
+                    <div className="chart-legend" style={{ display: 'flex', gap: 24, alignItems: 'center', color: '#74798C', lineHeight: '1.1' }}>
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#282D30', display: 'inline-block' }} />
                             Poids (kg)
@@ -112,7 +112,7 @@ function CalGraph() {
                             dataKey="kilogram"
                             fill="#282D30"
                             radius={[3, 3, 0, 0]}
-                            barSize={7}
+                            barSize={10}
                             name="kilogram"
                         />
                         <Bar
@@ -120,7 +120,7 @@ function CalGraph() {
                             dataKey="calories"
                             fill="#E60000"
                             radius={[3, 3, 0, 0]}
-                            barSize={7}
+                            barSize={10}
                             name="calories"
                         />
                     </BarChart>

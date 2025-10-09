@@ -10,13 +10,15 @@ function App() {
     <Router>
       <div className='App'>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profil" element={<Hero />} />
-          <Route path="/communaute" element={<Home />} />
-          <Route path="/reglages" element={<Home />} />
-          <Route path="/accueil" element={<Home />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profil" element={<Hero />} />
+            <Route path="/communaute" element={<Home />} />
+            <Route path="/reglages" element={<Home />} />
+            <Route path="/accueil" element={<Home />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   )

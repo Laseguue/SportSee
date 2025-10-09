@@ -68,9 +68,9 @@ function DurationGraph() {
             background: '#FF0101',
             borderRadius: 8,
             padding: 17,
+            paddingBottom: 0,
             color: '#FFFFFF',
             position: 'relative',
-            overflow: 'hidden',
             aspectRatio: '1 / 1',
         }}>
             {activeIndex !== null && (

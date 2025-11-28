@@ -16,8 +16,6 @@
   display: flex;
   flex-direction: row;
 }
-
-/* Reset pour éviter les marges par défaut */
 * {
   margin: 0;
   padding: 0;

@@ -13,24 +13,6 @@ function PerfGraph({ userId = 12 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    async function load() {
-      try {
-        setIsLoading(true);
-        setLoadError(null);
-        const p = await getCurrentUserPerformance({ signal: controller.signal });
-        setPerf(p);
-      } catch (err) {
-        if (err.name !== 'AbortError') setLoadError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    load();
-    return () => controller.abort();
-  }, [userId]);
-
   const frLabel = {
     cardio: 'Cardio',
     energy: 'Energie',
@@ -40,18 +22,58 @@ function PerfGraph({ userId = 12 }) {
     intensity: 'Intensité',
   };
 
+  useEffect(() => {
+    const controller = new AbortController();
+    
+    async function load() {
+      try {
+        setIsLoading(true);
+        setLoadError(null);
+        const performanceData = await getCurrentUserPerformance({ signal: controller.signal });
+        setPerf(performanceData);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setLoadError(err);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    load();
+    return () => controller.abort();
+  }, [userId]);
+
   const chartData = useMemo(() => {
-    return (perf.data || []).map(item => ({
-      subject: frLabel[perf.kind?.[item.kind]] ?? String(perf.kind?.[item.kind] ?? ''),
-      value: item.value ?? 0,
-    }));
+    const performanceList = perf.data || [];
+    
+    return performanceList.map(item => {
+      const kindId = item.kind;
+      const labelFr = frLabel[perf.kind[kindId]];
+      const subject = labelFr || String(perf.kind[kindId] || '');
+      const value = item.value || 0;
+      
+      return {
+        subject: subject,
+        value: value,
+      };
+    });
   }, [perf]);
 
   if (isLoading) {
-    return <div style={{ background: '#2E2E2E', borderRadius: 8, padding: 12, color: '#FFFFFF', aspectRatio: '1 / 1' }}>Chargement…</div>;
+    return (
+      <div style={{ background: '#2E2E2E', borderRadius: 8, padding: 12, color: '#FFFFFF', aspectRatio: '1 / 1' }}>
+        Chargement…
+      </div>
+    );
   }
+  
   if (loadError) {
-    return <div style={{ background: '#2E2E2E', borderRadius: 8, padding: 12, color: '#FFFFFF', aspectRatio: '1 / 1' }}>Une erreur est survenue.</div>;
+    return (
+      <div style={{ background: '#2E2E2E', borderRadius: 8, padding: 12, color: '#FFFFFF', aspectRatio: '1 / 1' }}>
+        Une erreur est survenue.
+      </div>
+    );
   }
 
   return (

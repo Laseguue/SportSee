@@ -9,31 +9,56 @@ function ScoreGraph({ userId = 12 }) {
 
   useEffect(() => {
     const controller = new AbortController();
+    
     async function load() {
       try {
         setIsLoading(true);
         setLoadError(null);
+        
         const data = await getCurrentUser({ signal: controller.signal });
-        const user = data.user ?? data;
-        const rawScore = user?.todayScore ?? user?.score ?? 0;
-        setScorePercent(Math.round(rawScore * 100));
+        
+        let userInfo = data.user;
+        if (!userInfo) {
+          userInfo = data;
+        }
+        let rawScore = userInfo.todayScore;
+        if (!rawScore) {
+          rawScore = userInfo.score;
+        }
+        if (!rawScore) {
+          rawScore = 0;
+        }
+        const scoreValue = Math.round(rawScore * 100);
+        setScorePercent(scoreValue);
       } catch (err) {
-        if (err.name !== 'AbortError') setLoadError(err);
+        if (err.name !== 'AbortError') {
+          setLoadError(err);
+        }
       } finally {
         setIsLoading(false);
       }
     }
+    
     load();
     return () => controller.abort();
   }, [userId]);
 
   const chartData = useMemo(() => [{ name: 'score', value: scorePercent }], [scorePercent]);
 
+  const containerStyle = {
+    position: 'relative',
+    background: '#FFFFFF',
+    borderRadius: 8,
+    padding: 16,
+    aspectRatio: '1 / 1'
+  };
+
   if (isLoading) {
-    return <div style={{ position: 'relative', background: '#FFFFFF', borderRadius: 8, padding: 16, aspectRatio: '1 / 1' }}>Chargement…</div>;
+    return <div style={containerStyle}>Chargement…</div>;
   }
+  
   if (loadError) {
-    return <div style={{ position: 'relative', background: '#FFFFFF', borderRadius: 8, padding: 16, aspectRatio: '1 / 1' }}>Une erreur est survenue.</div>;
+    return <div style={containerStyle}>Une erreur est survenue.</div>;
   }
 
   return (
@@ -60,6 +85,7 @@ function ScoreGraph({ userId = 12 }) {
             />
           </RadialBarChart>
         </ResponsiveContainer>
+        
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -79,9 +105,15 @@ function ScoreGraph({ userId = 12 }) {
             borderRadius: '50%'
           }} />
           <div style={{ position: 'relative', textAlign: 'center' }}>
-            <div className="score-value" style={{ fontWeight: 700, color: '#282D30' }}>{scorePercent}%</div>
-            <div className="score-sub" style={{ marginTop: 4, color: '#74798C' }}>de votre</div>
-            <div className="score-sub" style={{ color: '#74798C' }}>objectif</div>
+            <div className="score-value" style={{ fontWeight: 700, color: '#282D30' }}>
+              {scorePercent}%
+            </div>
+            <div className="score-sub" style={{ marginTop: 4, color: '#74798C' }}>
+              de votre
+            </div>
+            <div className="score-sub" style={{ color: '#74798C' }}>
+              objectif
+            </div>
           </div>
         </div>
       </div>

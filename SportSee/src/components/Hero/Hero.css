@@ -7,19 +7,15 @@
 
 .hero-content {
     flex: 1;
-    margin-top: 5rem; /* Espace pour le header fixe */
-    margin-left: 7rem; /* Espace pour la sidebar fixe */
+    margin-top: 5rem;
+    margin-left: 7rem;
     padding: 2rem;
-    padding-bottom: 4rem; /* Plus d'espace en bas pour créer l'espace blanc */
+    padding-bottom: 4rem;
     box-sizing: border-box;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 5rem); /* Hauteur totale moins la hauteur du header */
-}
-
-.cal-graph {
-    aspect-ratio: 36/9;
+    height: calc(100vh - 5rem); 
 }
 
 .profil-name {
@@ -47,14 +43,14 @@
 
 .dashboard {
     display: grid;
-    grid-template-columns: 1fr 0.1fr;
+    grid-template-columns: 3fr 0.1fr;
     grid-template-rows: 1fr;
     gap: 1.5rem;
     align-items: stretch;
     width: 100%;
-    flex: 0 1 auto; /* Permet au dashboard de ne pas prendre toute la hauteur */
-    min-height: 400px; /* Hauteur minimale pour le dashboard */
-    max-height: calc(100vh - 12rem); /* Limite la hauteur pour laisser de l'espace */
+    flex: 1 1 auto;
+    min-height: 400px;
+    max-height: calc(100vh - 12rem);
 }
 
 .nutrients {
@@ -68,10 +64,40 @@
 .graphs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
     gap: 2rem;
     height: 100%;
-    min-height: 120px; /* Hauteur minimale pour éviter que les graphiques soient trop petits */
+    min-height: 120px;
+
+}
+
+.graphs {
+    align-items: stretch;
+}
+
+.graphs > * {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+.graphs > * > * {
+    min-height: 0;
+}
+
+.graphs {
+    height: 647px;
+    overflow: hidden;
+}
+
+.graphs > * {
+    min-height: 0 !important;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .graphs > :nth-child(1) {
@@ -80,7 +106,7 @@
     background: #FBFBFB; 
     border-radius: 5px;
     padding: 1rem;
-    min-height: 120px; /* Hauteur minimale pour le graphique principal */
+    min-height: 120px;
     display: flex;
     flex-direction: column;
 }
@@ -91,7 +117,7 @@
     background: #FBFBFB; 
     border-radius: 5px;
     padding: 1rem;
-    min-height: 100px; /* Hauteur minimale pour les graphiques secondaires */
+    min-height: 100px;
     display: flex;
     flex-direction: column;
 }
@@ -152,27 +178,25 @@
 .nutrients > :nth-child(3) .nutrient-icon { background: rgba(249, 206, 35, 0.1); }
 .nutrients > :nth-child(4) .nutrient-icon { background: rgba(253, 81, 129, 0.1); }
 
-/* Media queries pour les écrans 1024px et plus */
 @media (min-width: 1024px) and (max-width: 1440px) {
     .hero-content {
         margin-left: 7rem;
         height: calc(100vh - 5rem);
         padding: 1.5rem;
-        padding-bottom: 3rem;
     }
     
     .dashboard {
-        grid-template-columns: 1fr 0.1fr; /* Garde le layout en 2 colonnes */
+        grid-template-columns: 3fr 0.1fr;
         grid-template-rows: 1fr;
         min-height: 400px;
         max-height: calc(100vh - 10rem);
     }
     
     .graphs {
-        grid-template-columns: repeat(3, 1fr); /* Garde la grille 3x2 */
-        grid-template-rows: 1fr 1fr;
-        min-height: 200px;
-        gap: 5rem;
+        grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1.6fr 1fr;
+        gap: 3rem 1rem;
+          height: 100%;
     }
     
     .graphs > :nth-child(1) {
@@ -250,7 +274,8 @@
         font-size: 5rem;
     }
 
-    .graphs {
-        gap: 4rem;
-    }
+        .graphs {
+                gap: 4rem;
+                    height: 100%;
+        }
 }

@@ -1,27 +1,30 @@
 import React from 'react';
 
 function NutrientCard({ type, value, unit, label }) {
+  const iconMap = {
+    calorie: '🔥',
+    protein: '🥩',
+    carb: '🍞',
+    lipid: '🧈',
+  };
+
   const getIcon = () => {
-    switch (type) {
-      case 'calorie':
-        return '🔥';
-      case 'protein':
-        return '🥩';
-      case 'carb':
-        return '🍞';
-      case 'lipid':
-        return '🧈';
-      default:
-        return '📊';
+    const icon = iconMap[type];
+    if (icon) {
+      return icon;
     }
+    return '📊';
   };
 
   const formatValue = (val) => {
-    if (typeof val === 'number') {
+    const isNumber = typeof val === 'number';
+    if (isNumber) {
       return val.toLocaleString('fr-FR');
     }
     return val;
   };
+
+  const formattedValue = formatValue(value);
 
   return (
     <div className="nutrient-card">
@@ -30,7 +33,7 @@ function NutrientCard({ type, value, unit, label }) {
       </div>
       <div className="nutrient-content">
         <div className="nutrient-value">
-          {formatValue(value)}{unit}
+          {formattedValue}{unit}
         </div>
         <div className="nutrient-label">
           {label}

@@ -6,13 +6,14 @@ import {
     XAxis,
     Tooltip,
     ResponsiveContainer,
-    Rectangle,
 } from 'recharts';
 
 function DurationGraph() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeIndex, setActiveIndex] = useState(null);
+
+    const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 
     useEffect(() => {
         const fetchSessionData = async () => {
@@ -21,7 +22,7 @@ function DurationGraph() {
                 const formattedData = sessionData.sessions.map((session) => ({
                     day: session.day,
                     duration: session.sessionLength,
-                    label: ['L','M','M','J','V','S','D'][session.day - 1],
+                    label: days[session.day - 1],
                 }));
                 setData(formattedData);
             } catch (error) {
@@ -34,33 +35,30 @@ function DurationGraph() {
         fetchSessionData();
     }, []);
 
+    const CustomTooltip = ({ active, payload }) => {
+        if (!active || !payload || payload.length === 0) {
+            return null;
+        }
+
+        return (
+            <div style={{ background: '#FFFFFF', padding: '6px 8px', fontSize: 12, color: '#000' }}>
+                {payload[0].value} min
+            </div>
+        );
+    };
+
     if (loading || data.length === 0) {
         return <div>Chargement...</div>;
     }
 
-    const CustomTooltip = ({ active, payload }) => {
-        if (active && payload && payload.length) {
-            return (
-                <div style={{ background: '#FFFFFF', padding: '6px 8px', fontSize: 12, color: '#000' }}>
-                    {payload[0].value} min
-                </div>
-            );
-        }
-        return null;
-    };
-
-    const CustomCursor = (props) => {
-        const { points, width, height } = props;
-        const { x } = points[0];
-        return (
-            <Rectangle
-                fill="rgba(0,0,0,0.1)"
-                x={x}
-                y={0}
-                width={width - x}
-                height={height}
-            />
-        );
+    const overlayStyle = {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: `${activeIndex * (100 / data.length)}%`,
+        width: `${100 / data.length}%`,
+        background: 'rgba(0,0,0,0.1)',
+        pointerEvents: 'none',
     };
 
     return (
@@ -74,29 +72,23 @@ function DurationGraph() {
             aspectRatio: '1 / 1',
         }}>
             {activeIndex !== null && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        bottom: 0,
-                        left: `${activeIndex * (100 / data.length)}%`,
-                        width: `${100 / data.length}%`,
-                        background: 'rgba(0,0,0,0.1)',
-                        pointerEvents: 'none',
-                    }}
-                />
+                <div style={overlayStyle} />
             )}
+
             <div className="chart-title" style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 180 }}>
                 Durée moyenne des sessions
             </div>
+
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
                     margin={{ top: 8, right: 8, left: 8, bottom: 8 }}
-                    onMouseMove={(s) => {
-                        const i = s?.activeTooltipIndex ?? null;
-                        if (i !== activeIndex) setActiveIndex(i);
-                      }}
+                    onMouseMove={(state) => {
+                        const newIndex = state?.activeTooltipIndex;
+                        if (newIndex !== activeIndex) {
+                            setActiveIndex(newIndex !== undefined ? newIndex : null);
+                        }
+                    }}
                     onMouseLeave={() => setActiveIndex(null)}
                 >
                     <XAxis
@@ -112,7 +104,12 @@ function DurationGraph() {
                         stroke="#FFFFFF"
                         strokeWidth={3}
                         dot={false}
-                        activeDot={{ r: 6, stroke: 'rgba(255,255,255,0.3)', strokeWidth: 10, fill: '#FFFFFF' }}
+                        activeDot={{
+                            r: 6,
+                            stroke: 'rgba(255,255,255,0.3)',
+                            strokeWidth: 10,
+                            fill: '#FFFFFF'
+                        }}
                     />
                 </LineChart>
             </ResponsiveContainer>

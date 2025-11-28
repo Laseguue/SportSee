@@ -2,6 +2,7 @@ import './App.css'
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Home from './components/Home/Home';
+import NotFound from './components/NotFound/NotFound';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/communaute" element={<Home />} />
             <Route path="/reglages" element={<Home />} />
             <Route path="/accueil" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </div>

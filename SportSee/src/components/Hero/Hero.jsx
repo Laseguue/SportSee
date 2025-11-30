@@ -25,6 +25,7 @@ function Hero() {
       } catch (error) {
         console.error('Erreur lors du chargement des données utilisateur:', error);
         setLoadError(error);
+        setUserData(null);
       } finally {
         setLoading(false);
       }
@@ -33,14 +34,27 @@ function Hero() {
     fetchUserData();
   }, []);
   if (loading) {
-    return <div>Chargement...</div>;
+    return (
+      <div className="hero">
+        <SideBar />
+        <div className="hero-content">
+          <div>Chargement...</div>
+        </div>
+      </div>
+    );
   }
-  if (loadError) {
-    return <div>Une erreur est survenue lors du chargement des données.</div>;
+
+  if (loadError || !userData) {
+    return (
+      <div className="hero">
+        <SideBar />
+        <div className="hero-content">
+          <div>les données n'ont pas été récupérées via l'api. impossible d'afficher les statistiques.</div>
+        </div>
+      </div>
+    );
   }
-  if (!userData) {
-    return <div>Aucune donnée disponible.</div>;
-  }
+
   const calorieCount = userData.keyData.calorieCount;
   const proteinCount = userData.keyData.proteinCount;
   const carbohydrateCount = userData.keyData.carbohydrateCount;
